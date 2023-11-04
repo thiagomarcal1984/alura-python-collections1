@@ -375,3 +375,37 @@ numeros = np.array([1., 3.5])
 print()
 print('Um array em numpy: ', numeros)
 ```
+# Método abstrato
+Há duas abordagens para forçar classes abstratas:
+
+1. Lançando um erro `NotImplementedError` (`raise NotImplementedError`); ou
+2. Usando a classe `ABCMeta` e a anotação `abstractmethod` do pacote `abc`.
+
+A vantagem da segunda abordagem é que a falta de completeza da classe é identificada mais antecipadamente: `ao instanciar o objeto` e não `ao invocar o método`.
+
+Mudanças no código do arquivo `polimorfismo.py`:
+```python
+from abc import ABCMeta, abstractmethod
+
+class Conta(metaclass=ABCMeta):
+    # Resto do código 
+    @abstractmethod
+    def passa_o_mes(self):
+        pass
+
+    # Outra forma de forçar um método abstrato:
+    # def passa_o_mes(self):
+    #     raise NotImplementedError
+
+# Resto do código 
+
+class ContaInvestimento(Conta):
+    # A criação da classe filha funciona, mas
+    # a instanciação ao seu objeto não funciona.
+    pass 
+
+# Aqui a instanciação já falha, porque o método 
+# abstrato "passa_o_mes" não foi implementado na
+# classe "ContaInvestimento".
+conta15 = ContaInvestimento(15)
+```
