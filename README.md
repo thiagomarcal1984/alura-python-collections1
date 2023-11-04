@@ -253,3 +253,44 @@ for conta in contas:
 # [>> Codigo 47685 Saldo 1000 <<]
 # [>> Codigo 15 Saldo 2500 <<]
 ```
+# Tuplas, objetos e anemia
+1. Listas são mutáveis em sua essência.
+2. Listas aceitam a inserção de dados de tipos diferentes.
+
+Na programação OO, evitamos modelos anêmicos (dados separados do comportamento, dados sem métodos que os controlem). Na programação funcional, o foco é em dados/funções.
+
+Tuplas são boas para programação funcional, porque esse tipo de programação evita misturar dados com o comportamento.
+
+Se você tem um tipo de dados fixo, cujas posições tem significados também fixos, pode ser interessante representar esse tipo de dados como uma tupla.
+
+```python
+print('Se a posição dos elementos é imutável, use tuplas.')
+print('As tuplas abaixo tem a estrutura nome / idade / ano.')
+guilherme = ('Guilherme', 37, 1981)
+daniela = ('Daniela', 31, 1987)
+
+print(guilherme, daniela, sep='\n\r')
+
+print()
+print('Tuplas são imutáveis.')
+# guilherme[1] += 1000 # Este código vai falhar.
+# A idade (guilhere[1]) não é mutável, porque está numa tupla.
+print('Os objetos das tuplas também são imutáveis.')
+
+
+conta = (15, 1000) # (Código da Conta, Saldo)
+
+def deposita_100(tupla_conta):
+    novo_saldo = tupla_conta[1] + 100
+    codigo = tupla_conta[0]
+    return (codigo, novo_saldo)
+
+print()
+print('Imprimindo a tupla resultante de "deposita_100(tupla)":')
+print(deposita_100(conta))
+
+print()
+print('A conta original permanece a mesma:')
+print(conta)
+# (15, 1100 )
+```
