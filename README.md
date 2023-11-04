@@ -409,7 +409,7 @@ class ContaInvestimento(Conta):
 # classe "ContaInvestimento".
 conta15 = ContaInvestimento(15)
 ```
-# Igualdade e o __eq__
+# Igualdade e o `__eq__`
 ```python
 class ContaSalario:
     def __init__(self, codigo):
@@ -726,4 +726,45 @@ contas = sorted(contas, key=attrgetter('_saldo'))
 # 2. Não quer ferir acessar uma propriedade com attrgetter;
 # 3. Não quer expor o valor encapsulado.
 # Então a próxima aula vai dizer o que pode ser feito.
+```
+
+# Implementando o `__lt__`
+```python
+class ContaSalario:
+    def __init__(self, codigo):
+        self._codigo = codigo
+        self._saldo = 0
+
+    # Resto do código
+
+    # Sobrescrevendo __lt__ (lesser than), 
+    # possibilitamos a compração entre dois objetos.
+    def __lt__(self, outro):
+        return self._saldo < outro._saldo 
+
+
+conta_do_guilherme = ContaSalario(17)
+conta_do_guilherme.deposita(500)
+
+conta_da_daniela = ContaSalario(3)
+conta_da_daniela.deposita(1000)
+
+conta_do_paulo = ContaSalario(133)
+conta_do_paulo.deposita(510)
+
+contas = [
+    conta_do_guilherme, 
+    conta_da_daniela, 
+    conta_do_paulo
+]
+
+# Se o método __lt__ da classe tiver sido 
+# implementado, a função 'sorted' vai funcionar, 
+# mesmo sem fornecemos o parâmetro 'key'.
+contas = sorted(contas)
+
+[ print(str(conta)) for conta in contas]
+# [>> Código 17 Saldo 500 <<]
+# [>> Código 133 Saldo 510 <<]
+# [>> Código 3 Saldo 1000 <<]
 ```

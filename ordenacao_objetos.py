@@ -14,6 +14,9 @@ class ContaSalario:
             return False
         return self._codigo == outro._codigo
 
+    def __lt__(self, outro):
+        return self._saldo < outro._saldo 
+
 
 conta_do_guilherme = ContaSalario(17)
 conta_do_guilherme.deposita(500)
@@ -46,10 +49,15 @@ contas.sort(key= lambda conta : conta._saldo)
 from operator import attrgetter
 contas = sorted(contas, key=attrgetter('_saldo'))
 
-[ print(str(conta)) for conta in contas]
-
 # Se você:
 # 1. Não tem uma função para inserir em sort;
 # 2. Não quer ferir acessar uma propriedade com attrgetter;
 # 3. Não quer expor o valor encapsulado.
 # Então a próxima aula vai dizer o que pode ser feito.
+
+# Se o método __lt__ da classe tiver sido 
+# implementado, a função 'sorted' vai funcionar, 
+# mesmo sem fornecemos o parâmetro 'key'.
+contas = sorted(contas)
+
+[ print(str(conta)) for conta in contas]
